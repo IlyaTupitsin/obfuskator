@@ -9,13 +9,13 @@ class Program
         // Чтение кода из файла
         string path = "C:\\Users\\Пользователь\\Desktop\\кликер и таймер.txt";
         string inputCode = File.ReadAllText(path);
-
-        // Удаляем лишние пробелы и символы перехода на новую строку
-        inputCode = Regex.Replace(inputCode, @"\s+", " ");
         // Удаляем комментарии
-        //   string compressedCode = Regex.Replace(inputCode, @"\/\*.*?\*\/", "", RegexOptions.Singleline);
-          string compressedCode = Regex.Replace(inputCode, @"//.*$", "", RegexOptions.Singleline);
-        // Заменяем имя класса
+        string codenotcoment = Regex.Replace(inputCode, @"(//.*?$)|(/\*.*?\*/)", string.Empty, RegexOptions.Multiline);
+        // Удаляем лишние пробелы и символы перехода на новую строку
+        inputCode = Regex.Replace(codenotcoment, @"\s+", " ");
+        // Удаляем комментарии
+      
+       
         inputCode = inputCode.Replace("Program", "новое_имя_класса");
 
         // Заменяем имя файла
@@ -39,7 +39,7 @@ class Program
         // Вывод измененного кода
         Console.WriteLine("Измененный код:");
         Console.WriteLine(inputCode);
-        Console.WriteLine( "код без коментов:");
-        Console.WriteLine(compressedCode);
+       
+
     }
 }
