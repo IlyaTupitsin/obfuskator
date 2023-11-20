@@ -13,8 +13,7 @@ class Program
         string codenotcoment = Regex.Replace(inputCode, @"(//.*?$)|(/\*.*?\*/)", string.Empty, RegexOptions.Multiline);
         // Удаляем лишние пробелы и символы перехода на новую строку
         inputCode = Regex.Replace(codenotcoment, @"\s+", " ");
-        // Удаляем комментарии
-      
+        
        
         inputCode = inputCode.Replace("Program", "новое_имя_класса");
 
