@@ -11,17 +11,20 @@ class Program
         string inputCode = File.ReadAllText(path);
         // Удаляем комментарии
         string codenotcoment = Regex.Replace(inputCode, @"(//.*?$)|(/\*.*?\*/)", string.Empty, RegexOptions.Multiline);
-        // Удаляем лишние пробелы и символы перехода на новую строку
-        inputCode = Regex.Replace(codenotcoment, @"\s+", " ");
-        
-       
-        inputCode = inputCode.Replace("Program", "новое_имя_класса");
+        // Заменяем имя класса 
+        inputCode = Regex.Replace(inputCode, @"(?<=\bclass\s+)\w+(?=\s*\{)", "NewClassName");
 
         // Заменяем имя файла
-        inputCode = inputCode.Replace("кликер и таймер", "новое_имя_файла");
+        string newFileName = "NewFileName.cs";
+        inputCode = Regex.Replace(inputCode, @"(?<=\bpublic\s+class\s+)\w+(?=\s*\{)", newFileName);
 
         // Заменяем имя конструктора
-        inputCode = inputCode.Replace("старое_имя_конструктора", "новое_имя_конструктора");
+        inputCode = Regex.Replace(inputCode, @"public\s\w+\s*\(", "public NewConstructorName(");
+        // Удаляем лишние пробелы и символы перехода на новую строку
+        inputCode = Regex.Replace(codenotcoment, @"\s+", " ");
+
+
+       
         // Находим все идентификаторы в коде
         var identifiers = Regex.Matches(inputCode, @"\b\w+\b")
                                .OfType<Match>()
